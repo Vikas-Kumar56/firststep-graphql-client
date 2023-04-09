@@ -3,10 +3,9 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useLoginMutation } from "../../generated/graphql";
 import Loader from "../common/Loader";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../common/AuthProvider";
-import { log } from "console";
-import { useEffect } from "react";
+import { useEffect, useTransition } from "react";
 
 const validationSchema = yup.object({
   username: yup.string().required("Please Enter username"),
@@ -20,13 +19,16 @@ const LoginContainer = () => {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const successRedirectUrl = location.state?.from?.pathname || "/";
 
-  useEffect(() => {
-    if (data && authActions) {
-      authActions.saveToken(data.login);
-      navigate("/");
-    }
-  }, [data, authActions]);
+  // useEffect(() => {
+  //   console.log("login", data, authActions);
+  //   if (data && authActions) {
+  //     authActions.saveToken(data.login);
+  //     navigate(successRedirectUrl, { replace: true });
+  //   }
+  // }, [data, authActions]);
 
   const loginForm = useFormik({
     initialValues: {
@@ -40,6 +42,11 @@ const LoginContainer = () => {
           username: values.username,
           password: values.password,
         },
+      }).then((response) => {
+        authActions && authActions.saveToken(response.data?.login ?? "");
+        setTimeout(() => {
+          navigate(successRedirectUrl, { replace: true });
+        });
       });
     },
   });

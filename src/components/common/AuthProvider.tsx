@@ -1,6 +1,12 @@
-import React, { FC, ReactNode, useEffect, useMemo, useState } from "react";
+import React, {
+  FC,
+  ReactNode,
+  memo,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import jwt from "jwt-decode";
-import Loader from "./Loader";
 
 interface Props {
   children: ReactNode;
@@ -25,7 +31,7 @@ const AuthProvider: FC<Props> = ({ children }) => {
   useEffect(() => {
     const jwtToken = localStorage.getItem("token");
 
-    if (jwtToken != null && user == null) {
+    if (jwtToken != null) {
       const decodedToken = jwt<{ sub: string; roles: string[] }>(jwtToken);
 
       setUser({
@@ -60,10 +66,12 @@ const AuthProvider: FC<Props> = ({ children }) => {
   );
 
   return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>
+      <>{children}</>
+    </AuthContext.Provider>
   );
 };
 
-export default AuthProvider;
+export default memo(AuthProvider);
 
 export const useAuth = () => React.useContext(AuthContext);
