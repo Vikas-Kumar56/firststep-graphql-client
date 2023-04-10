@@ -1,3 +1,17 @@
 mutation login($username: String!, $password: String!) {
   login(username: $username, password: $password)
 }
+
+mutation addComment($text: String!, $postId: ID!) {
+  addComment(addCommentInput: { text: $text, postId: $postId }) {
+    text
+    id
+  }
+}
+
+mutation addPosts($title: String!, $description: String!) {
+  addPost(addPostInput: { title: $title, description: $description }) {
+    id
+    title
+  }
+}
