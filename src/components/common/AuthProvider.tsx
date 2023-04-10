@@ -21,6 +21,7 @@ const AuthContext = React.createContext<AuthContextData | null>(null);
 
 const AuthProvider: FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const jwtToken = localStorage.getItem("token");
@@ -32,6 +33,8 @@ const AuthProvider: FC<Props> = ({ children }) => {
         username: decodedToken.sub,
         roles: decodedToken.roles,
       });
+
+      setLoading(false);
     }
   }, []);
 
@@ -60,7 +63,12 @@ const AuthProvider: FC<Props> = ({ children }) => {
   );
 
   return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>
+      <>
+        {loading && <Loader open={loading} />}
+        {!loading && <>{children}</>}
+      </>
+    </AuthContext.Provider>
   );
 };
 

@@ -27,6 +27,10 @@ const StyledLink = styled(Link)({
   textDecoration: "none",
 });
 
+const StyledPersonIcon = styled(PersonIcon)({
+  marginRight: "5px",
+});
+
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -103,7 +107,9 @@ const Header: FC<Props> = ({ open, handleDrawerOpen }) => {
                   <LogoutIcon />
                 </IconButton>
                 <IconButton color="inherit" edge="start" sx={{ mr: 2 }}>
-                  <PersonIcon /> {authContext?.user?.username}
+                  <Typography sx={{ display: "flex" }}>
+                    <StyledPersonIcon /> {authContext?.user?.username}
+                  </Typography>
                 </IconButton>
               </>
             )}

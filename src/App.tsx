@@ -3,6 +3,7 @@ import Layout from "./components/common/layout";
 import { Route, Routes } from "react-router-dom";
 import LoginContainer from "./components/login/LoginContainer";
 import RequireAuth from "./components/common/RequireAuth";
+import PostContainer from "./components/posts/PostContainer";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route element={<RequireAuth roles={["ROLE_ADMIN", "ROLE_VIEWER"]} />}>
           <Route path="/posts">
             {/* { Only allow access to ADMIN, VIEWER } */}
-            <Route index element={<div>Post page</div>} />
+            <Route index element={<PostContainer />} />
 
             {/* { Only allow access to ADMIN } */}
             <Route element={<RequireAuth roles={["ROLE_ADMIN"]} />}>
