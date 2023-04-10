@@ -14,4 +14,5 @@ export interface Author {
 export interface Comment {
   id: string;
   text: string;
+  author: Author;
 }

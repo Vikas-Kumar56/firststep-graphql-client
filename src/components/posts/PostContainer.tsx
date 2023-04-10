@@ -14,8 +14,6 @@ const PostContainer = () => {
     fetchPolicy: "network-only",
   });
 
-  console.log("loading", loading);
-
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <Loader open={loading} />

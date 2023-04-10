@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Post } from "../common/commonTypes";
 import {
   Button,
@@ -6,14 +6,17 @@ import {
   CardActionArea,
   CardActions,
   CardContent,
+  Divider,
   Typography,
 } from "@mui/material";
+import CommentList from "../commmets/CommentList";
 
 interface Props {
   post: Post;
 }
 
 const PostListItem: FC<Props> = ({ post }) => {
+  const [showcomment, setShowComment] = useState(false);
   return (
     <Card sx={{ width: 500, mb: 5 }}>
       <CardActionArea>
@@ -30,10 +33,21 @@ const PostListItem: FC<Props> = ({ post }) => {
         <Typography variant="subtitle1">
           Created by: {post.author.name}
         </Typography>
-        <Button size="small" color="secondary" variant="contained">
+        <Button
+          onClick={() => setShowComment(true)}
+          size="small"
+          color="secondary"
+          variant="contained"
+        >
           Show Comments
         </Button>
       </CardActions>
+      {showcomment && (
+        <>
+          <Divider />
+          <CommentList comments={post.comments} />
+        </>
+      )}
     </Card>
   );
 };
