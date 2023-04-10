@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useLoginMutation } from "../../generated/graphql";
 import Loader from "../common/Loader";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../common/AuthProvider";
 import { log } from "console";
 import { useEffect } from "react";
@@ -49,7 +49,9 @@ const LoginContainer = () => {
 
   return (
     <Box sx={{ textAlign: "center", marginTop: "2em" }}>
-      <Typography variant="h6">Login</Typography>
+      <Typography variant="h6">
+        Login / <Link to={"/register"}>Register</Link>
+      </Typography>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <form
           onSubmit={loginForm.handleSubmit}

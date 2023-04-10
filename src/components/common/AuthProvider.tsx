@@ -1,6 +1,7 @@
 import React, { FC, ReactNode, useEffect, useMemo, useState } from "react";
 import jwt from "jwt-decode";
 import Loader from "./Loader";
+import { log } from "console";
 
 interface Props {
   children: ReactNode;
@@ -33,9 +34,10 @@ const AuthProvider: FC<Props> = ({ children }) => {
         username: decodedToken.sub,
         roles: decodedToken.roles,
       });
-
-      setLoading(false);
     }
+
+    // it should be outside of if condition
+    setLoading(false);
   }, []);
 
   const clearToken = () => {
@@ -61,7 +63,6 @@ const AuthProvider: FC<Props> = ({ children }) => {
     }),
     [user]
   );
-
   return (
     <AuthContext.Provider value={contextValue}>
       <>
