@@ -75,7 +75,7 @@ const Header: FC<Props> = ({ open, handleDrawerOpen }) => {
           <MenuIcon />
         </IconButton>
         <UserOptionDiv>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" mt={0.5}>
             Stack Overflow
           </Typography>
           <Box>
@@ -103,7 +103,7 @@ const Header: FC<Props> = ({ open, handleDrawerOpen }) => {
                   <LogoutIcon />
                 </IconButton>
                 <IconButton color="inherit" edge="start" sx={{ mr: 2 }}>
-                  <PersonIcon /> John
+                  <PersonIcon /> {authContext?.user?.username}
                 </IconButton>
               </>
             )}
